@@ -26,6 +26,8 @@ class linearApp:
         frame2_text = tk.Label(frame2, text="INPUT", fg="white", font=("Arial", 20), bg="#612180")
         frame2_text.place(x=260, y=10)
 
+
+        #ให้มีส่วนของการนำเข้าข้อมูลที่ต้องการทำนาย
         input_labels = ["rice varieties", "Soil quality", "temp", "fertilizer", "Pests"]
         self.input_entries = []
 
@@ -53,11 +55,14 @@ class linearApp:
         openfile_button = tk.Button(frame4, text="Click Me", command=self.open_file, font=("Arial", 18), bg="#87ceeb", fg="black")
         openfile_button.grid(row=0, column=0, pady=30, padx=120)
 
+        
         predict_button = tk.Button(frame4, text="Predict", command=self.predict, font=("Arial", 18), bg="#A577BB", fg="black")
         predict_button.grid(row=0, column=1, pady=30, padx=120)
 
         self.predict_label = tk.Label(frame4, text="Predict: unknown", font=("Arial", 22), bg="#FFFFFF", fg="black")
         self.predict_label.grid(row=0, column=2, pady=30, padx=30)
+
+        #ให้มีส่วนแสดงของข้อมูลที่ใช้ฝึกฝนโดยให้มีข้อมูลสำหรับฝึกฝน 100 ข้อมูลขึ้นไป
 
         self.data = [
             #rice varieties = There are 5 rice varieties.
@@ -65,6 +70,8 @@ class linearApp:
             #temp = temperature in each item
             #fertilizer = Fertilizer is 0 means no fertilizer is applied, 1 means fertilizer is applied.
             #Pests = Pests are 0. No pests. 1 is there are pests
+
+            #ให้มีข้อมูลลักษณะ 5 features ขึ้นไป
             ["rice varieties", "Soil quality", "temp", "fertilizer", "Pests", "produk"],
             [4, 1, 30, 1, 0, 2.5],
             [4, 0, 29, 1, 0, 2.5],
@@ -192,10 +199,13 @@ class linearApp:
         if file_path:
             self.load_data_from_csv(file_path)
 
+
+    #ให้มีส่วนของปุ่มในการทำนาย
     def predict(self):
         user_input = [float(entry.get()) for entry in self.input_entries[:4]]
 
         # Change from KNeighborsClassifier to LinearRegression
+        #ให้ใช้เทคนิค Linear regression ในการทำนายข้อมูล
         linear_model = LinearRegression()
 
         X_train = [row[:-2] for row in self.data[1:]]
